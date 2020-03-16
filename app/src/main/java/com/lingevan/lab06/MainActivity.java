@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,27 +23,34 @@ public class MainActivity extends AppCompatActivity {
         firstFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadFragment(new FirstFragment());
+
+                FirstFragment f = new FirstFragment();
+                Gson gson = new Gson();
+
+                String json = gson.toJson(f);
+                System.out.println(json);
+
+                loadFragment(f);
             }
         });
-// perform setOnClickListener event on Second Button
         secondFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-// load Second Fragment
-                loadFragment(new SecondFragment());
+
+                SecondFragment s = new SecondFragment();
+                Gson gson2 = new Gson();
+
+                String json2 = gson2.toJson(s);
+                System.out.println(json2);
+
+                loadFragment(s);
             }
         });
-
     }
-
     private void loadFragment(Fragment fragment) {
-// create a FragmentManager
         FragmentManager fm = getFragmentManager();
-// create a FragmentTransaction to begin the transaction and replace the Fragment
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-// replace the FrameLayout with new Fragment
         fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit(); // save the changes
+        fragmentTransaction.commit();
     }
 }
